@@ -1,6 +1,6 @@
 import requests
 import json
-
+import math
 
 class Bolas:
     def __init__(self):
@@ -21,12 +21,28 @@ class Carro:
         self.centroy = 0
 
     def centro(self):
-        self.centrox = self.x1 - self.x2
-        self.centroy = self.y1 - self.y2
-       
+        self.centrox = (self.x1 + self.x2)/2
+        self.centroy = (self.y1 + self.y2)/2
+
 def set_pam(data_serv,elementos,bola,carro):
     for i in range(0,elementos):
         lista.append(Bolas())
+
+class vector(x,y):
+    def __init__(self):
+        self.magnitud = math.sqrt(x*x + y*y)
+        if (x>=0):
+            if(y>=0):
+                self.angle = math.tan(y/x)
+            else:
+                self.angle = math.tan(y/x)
+        else:
+            if(y>=0):
+                self.angle = 180-math.tan(y/x)
+            else:
+                self.angle = math.tan(y/x)-180
+                
+
 
 lista = [Bola()]
 
