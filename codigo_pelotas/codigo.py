@@ -2,8 +2,6 @@ import requests
 import json
 
 
-
-
 class Bolas:
     def __init__(self):
         self.radio = 0
