@@ -1,6 +1,9 @@
 import requests
 import json
 
+
+
+
 class Bolas:
     def __init__(self):
         self.radio = 0
@@ -23,10 +26,13 @@ class Carro:
         self.centrox = self.x1 - self.x2
         self.centroy = self.y1 - self.y2
        
-def set_pam(data_serv):
-    h = 0
+def set_pam(data_serv,elementos,bola,carro):
+    for i in range(0,elementos):
+        lista.append(Bolas())
 
-    
+lista = [Bola()]
+
+
 if __name__ == "__main__":
     # Define the IP address and Port of the Server.
     ip_address = "127.0.0.1"
