@@ -31,11 +31,11 @@ class Carro:
 def set_pam(data_serv,elementos,robot,lista):
     cont  = 0
     for i in range(0,elementos):
-        if (data_serv[i][2]==robot.colorBack): 
+        if (data_serv[i][2]==robot.colorFront):
             robot.x1 = data_serv[i][0][0]
             robot.y1 = data_serv[i][0][1]
             robot.frontal = True
-        elif (data_serv[i][2] == robot.colorFront):
+        elif (data_serv[i][2] == robot.colorBack):
             robot.x2 = data_serv[i][0][0]
             robot.y2 = data_serv[i][0][1]
             robot.back = True
@@ -65,9 +65,9 @@ class vector:
                 self.angle = math.atan(y/x)
         else:
             if(y >= 0):
-                self.angle = 180-math.atan(y/x)
+                self.angle = math.pi+math.atan(y/x)
             else:
-                self.angle = math.atan(y/x)-180
+                self.angle = math.atan(y/x)-math.pi
 
 
 
@@ -108,12 +108,19 @@ if __name__ == "__main__":
 
 
     vector_referencia = vector(bolas[0].x - robot.centrox, bolas[0].y -robot.centroy)
-    vector_carro = vector(robot.x1-robot.x2,robot.y1-robot.y2)
+    vector_carro = vector(robot.x1-robot.x2, robot.y1-robot.y2)
 
 
-    print(vector_referencia.angle)
-    print(vector_carro.angle)
 
-    print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
-    print(vector_bola[0].angle*180/math.pi, vector_bola[1].angle*180/math.pi)
+
+    print(robot.x1, robot.y1, robot.x2, robot.y2)
+
+    print(bolas[3].x, bolas[3].y)
+    print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
+    print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
+
+
+
+   ## print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
+   ## print(vector_bola[0].angle*180/math.pi, vector_bola[1].angle*180/math.pi)
 
