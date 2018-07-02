@@ -41,10 +41,10 @@ def set_pam(data_serv,elementos,robot,lista):
             robot.back = True
         else:
             lista.append(Bolas())
-            lista[cont].x = data_serv[cont][0][0]
-            lista[cont].y = data_serv[cont][0][1]
-            lista[cont].radio = data_serv[cont][1]
-            lista[cont].color = data_serv[cont][2]
+            lista[cont].x = data_serv[i][0][0]
+            lista[cont].y = data_serv[i][0][1]
+            lista[cont].radio = data_serv[i][1]
+            lista[cont].color = data_serv[i][2]
             cont+=1
 
     if (robot.frontal and robot.back):
