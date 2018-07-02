@@ -99,7 +99,7 @@ if __name__ == "__main__":
     print(response)
     print(bolas[0].color)
     print(len(bolas))
-        
+
     vector_bola = []
 
 
