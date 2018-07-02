@@ -30,7 +30,7 @@ def set_pam(data_serv,elementos,bola,carro):
         lista.append(Bolas())
 
 class vector:
-    def __init__(x, y):
+    def __init__(self, x, y):
         self.magnitud = math.sqrt(x*x + y*y)
         if (x >= 0):
             if (y >= 0):
