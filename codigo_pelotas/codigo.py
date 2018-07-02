@@ -47,14 +47,16 @@ class vector:
         self.magnitud = math.sqrt(x*x + y*y)
         if (x >= 0):
             if (y >= 0):
-                self.angle = math.tan(y/x)
+                self.angle = math.atan(y/x)
             else:
-                self.angle = math.tan(y/x)
+                self.angle = math.atan(y/x)
         else:
             if(y >= 0):
-                self.angle = 180-math.tan(y/x)
+                self.angle = 180-math.atan(y/x)
             else:
-                self.angle = math.tan(y/x)-180
+                self.angle = math.atan(y/x)-180
+
+
 
 
 if __name__ == "__main__":
@@ -84,3 +86,11 @@ if __name__ == "__main__":
     print(response)
     print(bolas[0].color)
     print(len(bolas))
+    vector_bola = []
+
+    for i in range(0, len(bolas)):
+        vector_bola.append(vector(bolas[i].x, bolas[i].y))
+
+    print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
+    print(vector_bola[0].angle*180/math.pi, vector_bola[1].angle*180/math.pi)
+
