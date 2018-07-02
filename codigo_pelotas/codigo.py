@@ -3,9 +3,6 @@ import json
 import math
 
 
-x = 5
-y = 6
-
 class Bolas:
     def __init__(self):
         self.radio = 0
@@ -33,15 +30,15 @@ def set_pam(data_serv,elementos,bola,carro):
         lista.append(Bolas())
 
 class vector:
-    def __init__(x,y):
+    def __init__(x, y):
         self.magnitud = math.sqrt(x*x + y*y)
-        if (x>=0):
-            if(y>=0):
+        if (x >= 0):
+            if (y >= 0):
                 self.angle = math.tan(y/x)
             else:
                 self.angle = math.tan(y/x)
         else:
-            if(y>=0):
+            if(y >= 0):
                 self.angle = 180-math.tan(y/x)
             else:
                 self.angle = math.tan(y/x)-180
