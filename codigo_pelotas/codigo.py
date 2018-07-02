@@ -32,12 +32,12 @@ def set_pam(data_serv,elementos,robot,lista):
     cont  = 0
     for i in range(0,elementos):
         if (data_serv[i][2]==robot.colorBack): 
-            robot.x1 = data_serv[cont][0][0]
-            robot.y1 = data_serv[cont][0][1]
+            robot.x1 = data_serv[i][0][0]
+            robot.y1 = data_serv[i][0][1]
             robot.frontal = True
         elif (data_serv[i][2] == robot.colorFront):
-            robot.x2 = data_serv[cont][0][0]
-            robot.y2 = data_serv[cont][0][1]
+            robot.x2 = data_serv[i][0][0]
+            robot.y2 = data_serv[i][0][1]
             robot.back = True
         else:
             lista.append(Bolas())
