@@ -18,8 +18,8 @@ class Carro:
         self.y2 = 0
         self.centrox = 0
         self.centroy = 0
-        self.colorBack = "vacio"
-        self.colorFront = "vacio"
+        self.colorBack = "BLUE"
+        self.colorFront = "CYAN"
         self.frontal = False
         self.back = False 
 
