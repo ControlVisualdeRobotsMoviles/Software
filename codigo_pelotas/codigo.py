@@ -99,7 +99,10 @@ if __name__ == "__main__":
     print(response)
     print(bolas[0].color)
     print(len(bolas))
+    print(robot.x1, robot.centroy)
+    print(bolas[0].x,bolas[0].y)
     vector_bola = []
+    print(robot.x2,robot.y2)
 
     for i in range(0, len(bolas)):
         vector_bola.append(vector(bolas[i].x, bolas[i].y))
