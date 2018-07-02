@@ -20,19 +20,25 @@ class Carro:
         self.centroy = 0
         self.colorBack = "vacio"
         self.colorFront = "vacio"
+        self.frontal = False
+        self.back = False 
 
     def centro(self):
         self.centrox = (self.x1 + self.x2)/2
         self.centroy = (self.y1 + self.y2)/2
 
 
-def set_pam(data_serv,elementos,carro,lista):
+def set_pam(data_serv,elementos,robot,lista):
     cont  = 0
     for i in range(0,elementos):
-        if (data_serv[i][2]==carro.colorBack): 
-            pass
-        elif (data_serv[i][2] == carro.colorFront):
-            pass
+        if (data_serv[i][2]==robot.colorBack): 
+            robot.x1 = data_serv[cont][0][0]
+            robot.y1 = data_serv[cont][0][1]
+            robot.frontal = True
+        elif (data_serv[i][2] == robot.colorFront):
+            robot.x2 = data_serv[cont][0][0]
+            robot.y2 = data_serv[cont][0][1]
+            robot.back = True
         else:
             lista.append(Bolas())
             lista[cont].x = data_serv[cont][0][0]
@@ -41,6 +47,13 @@ def set_pam(data_serv,elementos,carro,lista):
             lista[cont].color = data_serv[cont][2]
             cont+=1
 
+    if (robot.frontal and robot.back):
+        robot.centro()
+        robot.frontal = False
+        robot.back = False
+        print("\nHAY UN CARRO EN LA PISTA \n")
+
+    
 
 class vector:
     def __init__(self,x, y):
