@@ -12,10 +12,8 @@ class Bolas:
 
 class Carro:
     def __init__(self):
-        self.c1 = 0
         self.x1 = 0
         self.y1 = 0
-        self.c2 = 0
         self.x2 = 0
         self.y2 = 0
         self.centrox = 0
@@ -27,13 +25,9 @@ class Carro:
         self.centrox = (self.x1 + self.x2)/2
         self.centroy = (self.y1 + self.y2)/2
 
-<<<<<<< HEAD
 
 def set_pam(data_serv,elementos,carro,lista):
     cont  = 0
-=======
-def set_pam(data_serv,elementos,bola,carro):
->>>>>>> 7d301f7fcff1d660019ed3e9b5853745094ddb42
     for i in range(0,elementos):
         if (data_serv[i][2]==carro.colorBack): 
             pass
@@ -48,10 +42,8 @@ def set_pam(data_serv,elementos,bola,carro):
             cont+=1
 
 
-<<<<<<< HEAD
-=======
 class vector:
-    def __init__(x, y):
+    def __init__(self,x, y):
         self.magnitud = math.sqrt(x*x + y*y)
         if (x >= 0):
             if (y >= 0):
@@ -63,10 +55,6 @@ class vector:
                 self.angle = 180-math.tan(y/x)
             else:
                 self.angle = math.tan(y/x)-180
-
-
-#lista = [Bola()]
->>>>>>> 7d301f7fcff1d660019ed3e9b5853745094ddb42
 
 
 if __name__ == "__main__":
@@ -95,3 +83,4 @@ if __name__ == "__main__":
     '''
     print(response)
     print(bolas[0].color)
+    print(len(bolas))
