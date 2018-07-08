@@ -1,7 +1,11 @@
 import requests
 import json
 import math
+import serial, time
 
+
+demoqe = serial.Serial('COM7', 9600, timeout=1)
+cabecera = 255
 
 class Bolas:
     def __init__(self):
@@ -18,8 +22,8 @@ class Carro:
         self.y2 = 0
         self.centrox = 0
         self.centroy = 0
-        self.colorBack = "BLUE"
-        self.colorFront = "CYAN"
+        self.colorBack = "YELLOW"
+        self.colorFront = "BLUE"
         self.frontal = False
         self.back = False 
 
@@ -29,7 +33,7 @@ class Carro:
 
 
 def set_pam(data_serv,elementos,robot,lista):
-    cont  = 0
+    cont = 0
     for i in range(0,elementos):
         if (data_serv[i][2]==robot.colorFront):
             robot.x1 = data_serv[i][0][0]
@@ -58,12 +62,14 @@ def set_pam(data_serv,elementos,robot,lista):
 class vector:
     def __init__(self, x, y):
         self.magnitud = math.sqrt(x*x + y*y)
-        if (x >= 0):
+        if x == 0:
+            x = 0.00001
+        if (x > 0):
             if (y >= 0):
                 self.angle = math.atan(y/x)
             else:
                 self.angle = math.atan(y/x)
-        else:
+        elif( x < 0 ):
             if(y >= 0):
                 self.angle = math.pi+math.atan(y/x)
             else:
@@ -79,48 +85,64 @@ if __name__ == "__main__":
     ip_address = "127.0.0.1"
     port = "8000"
     # Make the request
-    r = requests.get("http://" + ip_address + ":" + port)
-
-    # Move the response to another variable
-    response = r.json()
-    # Print the response
-
-    num_elementos = len(response)
-    bolas = []
-    set_pam(response,num_elementos,robot,bolas)
-
-    print ("tipo de dato: "+ str(type(response)) +'\n')
-    '''
-
-    data = json.loads(response)
-    print(data)
-
-    '''
-    print(response)
-    print(bolas[0].color)
-    print(len(bolas))
-
-    vector_bola = []
 
 
-    for i in range(0, len(bolas)):
-        vector_bola.append(vector(bolas[i].x, bolas[i].y))
+    while True:
+        r = requests.get("http://" + ip_address + ":" + port)
+
+        # Move the response to another variable
+        response = r.json()
+            # Print the response
+        num_elementos = len(response)
+        bolas = []
+        set_pam(response,num_elementos,robot,bolas)
+
+        print ("tipo de dato: "+ str(type(response)) +'\n')
+        '''
+        
+        data = json.loads(response)
+        print(data)
+        '''
+        print(response)
+        #print(bolas[0].color)
+        print(len(bolas))
+
+        vector_bola = []
 
 
-    vector_referencia = vector(bolas[0].x - robot.centrox, bolas[0].y -robot.centroy)
-    vector_carro = vector(robot.x1-robot.x2, robot.y1-robot.y2)
+        for i in range(0, len(bolas)):
+            vector_bola.append(vector(bolas[i].x, bolas[i].y))
+
+        if len(bolas) != 0:
+
+            vector_referencia = vector(bolas[0].x - robot.centrox, bolas[0].y -robot.centroy)
+            vector_carro = vector(robot.x1-robot.x2, robot.y1-robot.y2)
+            print(robot.x1, robot.y1, robot.x2, robot.y2)
+
+            #print(bolas[3].x, bolas[3].y)
+            print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
+            print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
+
+            angle = vector_referencia.angle*180/math.pi - vector_carro.angle*180/math.pi
+
+            if angle >= 180:
+                angle = angle - 180
+            if angle <= -180:
+                angle = angle + 360
+
+            if angle >= 0:
+                signo = 0
+                print('thetha:'+ str(angle))
+            else:
+                signo = 1
+                angle = -1*angle
+                print('theta:' + str(angle))
 
 
+            rawstring = demoqe.read()
 
+            send = bytearray([cabecera, signo, int(angle), int(100*vector_referencia.magnitud)])
+            demoqe.write(send)
 
-    print(robot.x1, robot.y1, robot.x2, robot.y2)
-
-    print(bolas[3].x, bolas[3].y)
-    print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
-    print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
-
-
-
-   ## print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
+## print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
    ## print(vector_bola[0].angle*180/math.pi, vector_bola[1].angle*180/math.pi)
-
