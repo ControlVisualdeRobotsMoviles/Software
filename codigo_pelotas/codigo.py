@@ -23,7 +23,7 @@ class Carro:
         self.centrox = 0
         self.centroy = 0
         self.colorBack = "YELLOW"
-        self.colorFront = "BLUE"
+        self.colorFront = "GREEN"
         self.frontal = False
         self.back = False 
 
@@ -49,7 +49,7 @@ def set_pam(data_serv,elementos,robot,lista):
             lista[cont].y = data_serv[i][0][1]
             lista[cont].radio = data_serv[i][1]
             lista[cont].color = data_serv[i][2]
-            cont+=1
+            cont += 1
 
     if (robot.frontal and robot.back):
         robot.centro()
@@ -97,15 +97,15 @@ if __name__ == "__main__":
         bolas = []
         set_pam(response,num_elementos,robot,bolas)
 
-        print ("tipo de dato: "+ str(type(response)) +'\n')
+       # print ("tipo de dato: "+ str(type(response)) +'\n')
         '''
         
         data = json.loads(response)
         print(data)
         '''
-        print(response)
+       # print(response)
         #print(bolas[0].color)
-        print(len(bolas))
+       # print(len(bolas))
 
         vector_bola = []
 
@@ -117,11 +117,11 @@ if __name__ == "__main__":
 
             vector_referencia = vector(bolas[0].x - robot.centrox, bolas[0].y -robot.centroy)
             vector_carro = vector(robot.x1-robot.x2, robot.y1-robot.y2)
-            print(robot.x1, robot.y1, robot.x2, robot.y2)
+           # print(robot.x1, robot.y1, robot.x2, robot.y2)
 
             #print(bolas[3].x, bolas[3].y)
-            print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
-            print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
+           # print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
+           # print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
 
             angle = vector_referencia.angle*180/math.pi - vector_carro.angle*180/math.pi
 
@@ -129,19 +129,25 @@ if __name__ == "__main__":
                 angle = angle - 180
             if angle <= -180:
                 angle = angle + 360
+            print('Thetha: ' + str(angle))
+            print('Magnitud: ' + str(int(100 * vector_referencia.magnitud)))
 
             if angle >= 0:
                 signo = 0
-                print('thetha:'+ str(angle))
+
             else:
                 signo = 1
                 angle = -1*angle
-                print('theta:' + str(angle))
 
 
             rawstring = demoqe.read()
 
             send = bytearray([cabecera, signo, int(angle), int(100*vector_referencia.magnitud)])
+            demoqe.write(send)
+
+        else:
+
+            send = bytearray[(cabecera, 0, 0, 0)]
             demoqe.write(send)
 
 ## print(bolas[0].x, bolas[0].y,bolas[1].x, bolas[1].y)
