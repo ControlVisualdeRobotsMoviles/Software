@@ -112,7 +112,6 @@ if __name__ == "__main__":
         if len(bolas) != 0:
 
             vector_referencia = vector(bolas[0].x - robot.centrox, bolas[0].y - robot.centroy)
-            vector_goal = vector(0.2 - robot.centrox, 0.2 - robot.centroy)
             vector_carro = vector(robot.x1 - robot.x2, robot.y1 - robot.y2)
             # print(robot.x1, robot.y1, robot.x2, robot.y2)
 
@@ -120,23 +119,14 @@ if __name__ == "__main__":
             # print(vector_referencia.angle*180/math.pi, vector_referencia.magnitud)
             # print(vector_carro.angle*180/math.pi, vector_carro.magnitud)
 
-            if vector_referencia.magnitud*100 > 18:
-                print('prueba')
-                angle = vector_referencia.angle * 180 / math.pi - vector_carro.angle * 180 / math.pi
-                distancia = vector_referencia.magnitud
-
-            else:
-                angle = vector_goal.angle * 180 / math.pi - vector_carro.angle * 180 / math.pi
-                distancia = vector_goal.magnitud
+            angle = vector_referencia.angle * 180 / math.pi - vector_carro.angle * 180 / math.pi
 
             if angle >= 180:
                 angle = angle - 180
             if angle <= -180:
                 angle = angle + 360
-
             print('Thetha: ' + str(angle))
             print('Magnitud: ' + str(int(100 * vector_referencia.magnitud)))
-            print('Distancia: ' + str(int(100 * distancia)))
 
             if angle >= 0:
                 signo = 0
@@ -147,7 +137,7 @@ if __name__ == "__main__":
 
             rawstring = demoqe.read()
 
-            send = bytearray([cabecera, signo, int(angle), int(100* distancia)])
+            send = bytearray([cabecera, signo, int(angle), int(100 * vector_referencia.magnitud)])
             demoqe.write(send)
 
         else:
